@@ -325,7 +325,7 @@ func (c *Controller) updateFooStatus(foo *samplev1alpha1.Foo) error {
 	// You can use DeepCopy() to make a deep copy of original object and modify this copy
 	// Or create a copy manually for better performance
 	fooCopy := foo.DeepCopy()
-	fooCopy.Status.Douniwan = fooCopy.Status.Douniwan + 1
+	fooCopy.Status.Douniwan = 10
 	// If the CustomResourceSubresources feature gate is not enabled,
 	// we must use Update instead of UpdateStatus to update the Status block of the Foo resource.
 	// UpdateStatus will not allow changes to the Spec of the resource,
@@ -352,7 +352,6 @@ func (c *Controller) enqueueFoo(obj interface{}) {
 // string which is then put onto the work queue. This method should *not* be
 // passed resources of any type other than Foo.
 func (c *Controller) enqueueFoo2(obj interface{}) {
-	fmt.Println("enqueueFoo got a object: %+v\n", obj)
 	var key string
 	var err error
 	if key, err = cache.MetaNamespaceKeyFunc(obj); err != nil {

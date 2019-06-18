@@ -19,6 +19,7 @@ package main
 import (
 	"flag"
 	"time"
+	"fmt"
 
 	kubeinformers "k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
@@ -57,6 +58,8 @@ func main() {
 	if err != nil {
 		klog.Fatalf("Error building example clientset: %s", err.Error())
 	}
+
+	fmt.Println("Starting Controller..")
 
 	kubeInformerFactory := kubeinformers.NewSharedInformerFactory(kubeClient, time.Second*30)
 	exampleInformerFactory := informers.NewSharedInformerFactory(exampleClient, time.Second*30)

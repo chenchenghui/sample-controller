@@ -156,8 +156,11 @@ func (c *Controller) Run(threadiness int, stopCh <-chan struct{}) error {
 
 	// Wait for the caches to be synced before starting workers
 	klog.Info("Waiting for informer caches to sync")
-	if ok := cache.WaitForCacheSync(stopCh, c.deploymentsSynced, c.foosSynced); !ok {
+	ok := cache.WaitForCacheSync(stopCh, c.deploymentsSynced, c.foosSynced);
+	if !ok {
 		return fmt.Errorf("failed to wait for caches to sync")
+	} else {
+		fmt.Println("Cache synced.")
 	}
 
 	klog.Info("Starting workers")
@@ -335,6 +338,7 @@ func (c *Controller) updateFooStatus(foo *samplev1alpha1.Foo, deployment *appsv1
 // string which is then put onto the work queue. This method should *not* be
 // passed resources of any type other than Foo.
 func (c *Controller) enqueueFoo(obj interface{}) {
+	fmt.Println("enqueueFoo got a object: %+v\n", obj)
 	var key string
 	var err error
 	if key, err = cache.MetaNamespaceKeyFunc(obj); err != nil {

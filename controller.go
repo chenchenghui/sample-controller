@@ -352,6 +352,7 @@ func (c *Controller) enqueueFoo(obj interface{}) {
 // string which is then put onto the work queue. This method should *not* be
 // passed resources of any type other than Foo.
 func (c *Controller) enqueueFoo2(obj interface{}) {
+	fmt.Println("Kube Deploy got a object: %+v\n", obj)
 	var key string
 	var err error
 	if key, err = cache.MetaNamespaceKeyFunc(obj); err != nil {

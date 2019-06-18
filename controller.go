@@ -126,7 +126,7 @@ func NewController(
 	// handling Deployment resources. More info on this pattern:
 	// https://github.com/kubernetes/community/blob/8cafef897a22026d42f5e5bb3f104febe7e29830/contributors/devel/controllers.md
 	deploymentInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
-		AddFunc: controller.handleObject,
+		AddFunc: controller.enqueueFoo2,
 		UpdateFunc: func(old, new interface{}) {
 			newDepl := new.(*appsv1.Deployment)
 			oldDepl := old.(*appsv1.Deployment)
@@ -135,9 +135,9 @@ func NewController(
 				// Two different versions of the same Deployment will always have different RVs.
 				return
 			}
-			controller.handleObject(new)
+			controller.enqueueFoo2(new)
 		},
-		DeleteFunc: controller.handleObject,
+		DeleteFunc: controller.enqueueFoo2,
 	})
 
 	return controller

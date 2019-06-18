@@ -40,7 +40,7 @@ type FooSpec struct {
 
 // FooStatus is the status for a Foo resource
 type FooStatus struct {
-	AvailableReplicas int32 `json:"availableReplicas"`
+	Douniwan int32 `json:"douniwan"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

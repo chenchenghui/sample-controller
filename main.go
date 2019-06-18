@@ -61,8 +61,8 @@ func main() {
 
 	fmt.Println("Starting Controller..")
 
-	kubeInformerFactory := kubeinformers.NewSharedInformerFactory(kubeClient, time.Second*30)
-	exampleInformerFactory := informers.NewSharedInformerFactory(exampleClient, time.Second*30)
+	kubeInformerFactory := kubeinformers.NewSharedInformerFactory(kubeClient, 0)
+	exampleInformerFactory := informers.NewSharedInformerFactory(exampleClient, 0)
 
 	controller := NewController(kubeClient, exampleClient,
 		kubeInformerFactory.Apps().V1().Deployments(),

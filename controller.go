@@ -338,7 +338,7 @@ func (c *Controller) updateFooStatus(foo *samplev1alpha1.Foo) error {
 // string which is then put onto the work queue. This method should *not* be
 // passed resources of any type other than Foo.
 func (c *Controller) enqueueFoo(obj interface{}) {
-	fmt.Println("enqueueFoo got a object: %+v\n", obj)
+	fmt.Println("\nenqueueFoo got a object: ", obj)
 	var key string
 	var err error
 	if key, err = cache.MetaNamespaceKeyFunc(obj); err != nil {
@@ -352,7 +352,7 @@ func (c *Controller) enqueueFoo(obj interface{}) {
 // string which is then put onto the work queue. This method should *not* be
 // passed resources of any type other than Foo.
 func (c *Controller) enqueueFoo2(obj interface{}) {
-	fmt.Println("Kube Deploy got a object: %+v\n", obj)
+	fmt.Println("\nKube-queue got a object: ", obj)
 	var key string
 	var err error
 	if key, err = cache.MetaNamespaceKeyFunc(obj); err != nil {
@@ -390,6 +390,8 @@ func (c *Controller) handleObject(obj interface{}) {
 		if ownerRef.Kind != "Foo" {
 			return
 		}
+
+		fmt.Println("\nhandleObject got a object: ", object)
 
 		foo, err := c.foosLister.Foos(object.GetNamespace()).Get(ownerRef.Name)
 		if err != nil {
